@@ -10,6 +10,7 @@ WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
+YELLOW = (255,255,0)
 
 num_cols = num_rows = 30
 total_width = total_height = 660
@@ -30,6 +31,7 @@ class Cell:
         self.g = 0
         self.h = 0
         self.f = 0
+        self.previous = None
     
     def show_color(self, color):
         pygame.draw.rect(screen, color, [self.x*cell_h+1, self.y*cell_w+1, cell_h-2, cell_w-2])
@@ -84,8 +86,9 @@ while not done:
     food.show_color(GREEN)
     for i in snake:
         i.show_color(WHITE)
+    snake[-1].show_color(YELLOW)
     
-    pygame.display.flip()
+    pygame.display.update()
 
     dir_changed = False
 
