@@ -37,6 +37,12 @@ class Cell:
         pygame.draw.rect(screen, color, [self.x*cell_h+1, self.y*cell_w+1, cell_h-2, cell_w-2])
 
 
+
+def DFS(grid, snake, food):
+    directions = []
+    return directions
+
+
 grid = [[Cell(i, j) for j in range(num_cols)] for i in range(num_rows)]
 snake = [grid[round(num_rows/2)][round(num_cols/2)]]
 curr = snake[-1]
@@ -46,7 +52,7 @@ food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
 # directions: 0=up, 1=right, 2=down, 3=left
 
 done = False
-dirs = [0]
+dirs = DFS(grid, snake, food) #[0]
 
 while not done:
     clock.tick(20)
