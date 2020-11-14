@@ -105,6 +105,9 @@ food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
 done = False
 dirs = dfs(grid, snake, food) #[0]
 
+while dirs == []:
+    dirs = dfs(grid, snake, food)
+
 while not done:
     clock.tick(20)
     screen.fill(BLACK)
