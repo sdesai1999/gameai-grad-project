@@ -40,16 +40,11 @@ class Cell:
 
 def dfs(grid, snake, food):
     directions = []
-    x_vector = [0, 1, 0, -1] 
-    y_vector = [-1, 0, 1, 0]
 
     # initialize visited matrix, and set the start to the snake head and goal to the food pellet
     visited = [[False for j in range(num_cols)] for i in range(num_rows)]
     init = grid[snake[-1].x][snake[-1].y]
     goal = grid[food.x][food.y]
-
-    print(init.x, init.y)
-    print(goal.x, goal.y)
 
     stack = [init]
 
@@ -57,42 +52,44 @@ def dfs(grid, snake, food):
     visited[init.x][init.y] = True
     curr = None
 
-    while len(stack):
+    while len(stack) > 0:
         curr = stack.pop(-1)
         visited[curr.x][curr.y] = True
 
         # stop if goal is found
         if curr.x == goal.x and curr.y == goal.y:
-            break
+            while curr != init:
+                direction = (curr.x - curr.previous.x, curr.y - curr.previous.y)  # 0 = up, 1 = right, 2 = down, 3 = left but we flip since we are going backwards
+                if direction == (0, -1): # if down, add up
+                    direction = 0
+                elif direction == (0, 1): #if up, add down
+                    direction = 2
+                elif direction == (1, 0): #if right, add left
+                    direction = 1
+                elif direction == (-1, 0): #if left, add right
+                    direction = 3
+                directions.append(direction)
+                curr = curr.previous
+            return directions
 
         # generate the four neighbors
-        for n in range(4):
-            new_x = curr.x + x_vector[n]
-            new_y = curr.y + y_vector[n]
+        neighbors = [(curr.x, curr.y-1), (curr.x+1, curr.y), (curr.x, curr.y+1), (curr.x-1, curr.y)] #up right down left
+
+        for n in neighbors:
+            new_x, new_y = n
 
             # if new coords are in bounds, not visited, and not part of the snake, push the coords to the stack
-            if new_x < num_rows and new_x >= 0 and new_y < num_cols and new_y >= 0:
-                newCell = grid[new_x][new_y]
-                if not visited[new_x][new_y] and newCell not in snake:
-                    newCell.previous = curr
-                    stack.append(newCell)
- 
-    #backtracking from goal
-    curr = goal
-    while curr.previous != None:
-        direction = (curr.x - curr.previous.x, curr.y - curr.previous.y)  # 0 = up, 1 = right, 2 = down, 3 = left but we flip since we are going backwards
-        if direction == (0, -1): # if down, add up
-            direction = 0
-        elif direction == (0, 1): #if up, add down
-            direction = 2
-        elif direction == (1, 0): #if right, add left
-            direction = 3
-        elif direction == (-1, 0): #if left, add right
-            direction = 1
-        directions.append(direction)
-        curr = curr.previous
+            if new_x >= num_rows or new_x < 0 or new_y >= num_cols or new_y < 0:
+                continue
 
-    
+            newCell = grid[new_x][new_y]
+
+            if newCell in snake or visited[new_x][new_y]:
+                continue
+
+            if newCell not in stack:
+                newCell.previous = curr
+                stack.append(newCell)
 
     return directions
 
@@ -107,7 +104,6 @@ food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
 
 done = False
 dirs = dfs(grid, snake, food) #[0]
-print(dirs)
 
 while not done:
     clock.tick(20)
