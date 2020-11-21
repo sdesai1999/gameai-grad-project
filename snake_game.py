@@ -1,8 +1,21 @@
 from random import randint
 import pygame
-import numpy as np
 import sys
-from search_algos import bfs, dfs
+from search_algos import bfs, dfs, astar
+
+if len(sys.argv) != 2:
+    print('input dfs, bfs, or astar as an arg')
+    sys.exit(1)
+
+if sys.argv[1] == 'bfs':
+    SEARCH_ALGO = bfs
+elif sys.argv[1] == 'dfs':
+    SEARCH_ALGO = dfs
+elif sys.argv[1] == 'astar':
+    SEARCH_ALGO = astar
+else:
+    print('input dfs, bfs, or astar as an arg')
+    sys.exit(1)
 
 pygame.init()
 
@@ -12,8 +25,6 @@ BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 YELLOW = (255,255,0)
-
-SEARCH_ALGO = dfs
 
 num_cols = num_rows = 30
 total_width = total_height = 660
@@ -89,6 +100,14 @@ while not done:
         food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
         while food in snake:
             food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
+        # print(food.x, food.y)
+        for i, x in enumerate(grid):
+            for j, y in enumerate(grid[i]):
+                grid[i][j].g = 0
+                grid[i][j].h = 0
+                grid[i][j].f = 0
+                grid[i][j].previous = None
+                
         dirs = SEARCH_ALGO(grid, snake, food)
     else:
         snake.pop(0)
