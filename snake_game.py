@@ -156,8 +156,8 @@ while not done:
                 grid[i][j].previous = None
 
         dirs = SEARCH_ALGO(grid, snake, food)
-        dirs2 = SECOND_ALGO(grid, snake2, food)
         if SECOND_ALGO:
+            dirs2 = SECOND_ALGO(grid, snake2, food)
             snake2.pop(0)
 
     elif SECOND_ALGO and curr2.x == food.x and curr2.y == food.y:
