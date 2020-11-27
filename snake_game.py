@@ -16,8 +16,8 @@ elif sys.argv[1] == 'dfs':
 elif sys.argv[1] == 'astar':
     SEARCH_ALGO = astar
 elif sys.argv[1] == 'both':
-    SEARCH_ALGO = bfs
-    SECOND_ALGO = astar
+    SEARCH_ALGO = dfs
+    SECOND_ALGO = bfs
 else:
     print('input dfs, bfs, or astar as an arg')
     sys.exit(1)
@@ -174,6 +174,7 @@ while not done:
 
         dirs = SEARCH_ALGO(grid, snake, food)
         dirs2 = SECOND_ALGO(grid, snake2, food)
+        snake.pop(0)
     else:
         snake.pop(0)
         if SECOND_ALGO:
