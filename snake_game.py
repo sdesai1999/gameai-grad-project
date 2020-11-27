@@ -33,8 +33,8 @@ YELLOW = (255,255,0) #snakehead
 
 
 
-num_cols = num_rows = 30
-total_width = total_height = 660
+num_cols = num_rows = 43
+total_width = total_height = 946
 
 cell_w = total_width // num_cols
 cell_h = total_height // num_rows

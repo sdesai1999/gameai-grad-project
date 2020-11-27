@@ -2,7 +2,7 @@ from queue import PriorityQueue
 import numpy as np
 from itertools import count
 
-num_cols = num_rows = 30
+num_cols = num_rows = 43
 
 def bfs(grid, snake, food):
     directions = []
