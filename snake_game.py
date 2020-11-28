@@ -15,8 +15,10 @@ elif sys.argv[1] == 'dfs':
     SEARCH_ALGO = dfs
 elif sys.argv[1] == 'astar':
     SEARCH_ALGO = astar
+elif sys.argv[1] == 'astar_manhattan':
+    SEARCH_ALGO = astar_manhattan
 elif sys.argv[1] == 'both':
-    SEARCH_ALGO = bfs
+    SEARCH_ALGO = dfs
     SECOND_ALGO = astar_manhattan
 else:
     print('input dfs, bfs, or astar as an arg')
