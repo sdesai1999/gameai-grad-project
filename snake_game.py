@@ -1,7 +1,7 @@
 from random import randint
 import pygame
 import sys
-from search_algos import bfs, dfs, astar
+from search_algos import bfs, dfs, astar, astar_manhattan
 
 if len(sys.argv) != 2:
     print('input dfs, bfs, or astar as an arg')
@@ -16,8 +16,8 @@ elif sys.argv[1] == 'dfs':
 elif sys.argv[1] == 'astar':
     SEARCH_ALGO = astar
 elif sys.argv[1] == 'both':
-    SEARCH_ALGO = dfs
-    SECOND_ALGO = bfs
+    SEARCH_ALGO = bfs
+    SECOND_ALGO = astar_manhattan
 else:
     print('input dfs, bfs, or astar as an arg')
     sys.exit(1)
