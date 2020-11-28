@@ -9,6 +9,7 @@ if len(sys.argv) != 2:
 
 SECOND_ALGO = None
 
+FRUIT_COUNTER = 0
 if sys.argv[1] == 'bfs':
     SEARCH_ALGO = bfs
 elif sys.argv[1] == 'dfs':
@@ -93,7 +94,7 @@ while dirs == [] or dirs2 == []:
     dirs2 = SECOND_ALGO(grid, snake2, food)
 
 while not done:
-    clock.tick(20)
+    clock.tick(7000)
     screen.fill(BLACK)
     curr_dir = dirs.pop()
     if SECOND_ALGO:
@@ -147,6 +148,8 @@ while not done:
 
     if curr.x == food.x and curr.y == food.y:
         food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
+        FRUIT_COUNTER += 1
+        print(FRUIT_COUNTER)
         while food in snake:
             food = grid[randint(0, num_rows-1)][randint(0, num_cols-1)]
         # print(food.x, food.y)
